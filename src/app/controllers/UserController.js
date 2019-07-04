@@ -1,3 +1,5 @@
+// Yup serve para validar campos enviados pelo frontend
+import * as Yup from 'yup';
 import User from '../models/User';
 
 class UserController {
