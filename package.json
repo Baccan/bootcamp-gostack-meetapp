@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Gustavo Baccan Gomes <gustavobaccang@gmail.com>",
-  "description": "Aplicação Meetaapp para o Bootcamp Gostack",
+  "description": "Aplicação Meetapp para o Bootcamp Gostack",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

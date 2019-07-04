@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import bcrypt from 'bcryptjs';
 
 class User extends Model {
   // Método chamado automaticamente pelo sequelize.
@@ -18,6 +19,21 @@ class User extends Model {
         sequelize,
       }
     );
+
+    // Hooks são techos de código que são executados automatcamente com ações realizadas no Model
+    // Apagando beforeSave e dando ctrl + space vc pode ver todoas as opções
+    this.addHook('beforeSave', async user => {
+      if (user.password) {
+        // 8 é a força da criptografia. Valores muito altos acabam pesando na aplicação
+        user.password_hash = await bcrypt.hash(user.password, 8);
+      }
+    });
+    // Retorna o model que acaba de ser inicializado
+    return this;
+  }
+
+  checkPassword(password) {
+    return bcrypt.compare(password, this.password_hash);
   }
 }
 
