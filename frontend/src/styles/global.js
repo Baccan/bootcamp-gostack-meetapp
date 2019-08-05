@@ -15,7 +15,7 @@ export default createGlobalStyle`
   }
 
   html, body, #root {
-    height: 100%;
+    background: linear-gradient(90deg, #22202c, #402845);
   }
 
   body {
