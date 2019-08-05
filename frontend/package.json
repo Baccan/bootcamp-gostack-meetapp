@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "history": "^4.9.0",
+    "polished": "^3.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -34,7 +35,7 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
+    "babel-eslint": "10.0.1",
     "babel-plugin-root-import": "^6.4.1",
     "customize-cra": "^0.4.1",
     "eslint": "^5.16.0",
