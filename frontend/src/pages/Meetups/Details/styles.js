@@ -4,19 +4,20 @@ import { darken } from 'polished';
 export const Container = styled.div`
   max-width: 940px;
   margin: 50px auto;
+`;
 
-  header {
-    display: flex;
-    justify-content: space-between;
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
 
-    h1 {
-      color: #fff;
-    }
+  h1 {
+    color: #fff;
+  }
 
+  div {
     button {
-      margin: 5px 0 0;
-      width: 162px;
       height: 44px;
+      padding: 12px 24px;
       background: #f94d6a;
       font-weight: bold;
       color: #fff;
@@ -29,25 +30,35 @@ export const Container = styled.div`
         background: ${darken(0.07, '#F94D6A')};
       }
     }
+    #btn-editar {
+      background: #4dbaf9;
+      margin-right: 15px;
+
+      &:hover {
+        background: ${darken(0.09, '#4dbaf9')};
+      }
+    }
   }
 `;
 
-export const MeetupsList = styled.ul`
-  margin: 48px auto;
+export const Content = styled.div`
+  img {
+    width: 100%;
+    margin: 50px 0 25px 0;
+  }
 
-  li {
-    background: rgba(0, 0, 0, 0.2);
-    padding: 20px 30px;
-    margin: 10px auto;
+  p {
     color: #fff;
-    font-weight: bold;
     font-size: 18px;
+  }
 
+  div {
+    width: 440px;
+    margin: 40px 0;
     display: flex;
     justify-content: space-between;
-
     span {
-      font-weight: normal;
+      color: rgba(255, 255, 255, 0.5);
       font-size: 16px;
     }
   }

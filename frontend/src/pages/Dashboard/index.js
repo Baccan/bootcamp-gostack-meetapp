@@ -8,28 +8,18 @@ export default function Dashboard() {
     <Container>
       <header>
         <h1>Meus meetups</h1>
-        <Link to="/meetups/new">
+        <Link to="/meetups/edit">
           <button type="button">Novo meetap</button>
         </Link>
       </header>
 
       <MeetupsList>
-        <li>
-          Meetup - React
-          <span>25 de Agosto, às 18h30</span>
-        </li>
-        <li>
-          Meetup - React
-          <span>25 de Agosto, às 18h30</span>
-        </li>
-        <li>
-          Meetup - React
-          <span>25 de Agosto, às 18h30</span>
-        </li>
-        <li>
-          Meetup - React
-          <span>25 de Agosto, às 18h30</span>
-        </li>
+        <Link to="/meetups/details">
+          <li>
+            Meetup - React
+            <span>25 de Agosto, às 18h30</span>
+          </li>
+        </Link>
       </MeetupsList>
     </Container>
   );
