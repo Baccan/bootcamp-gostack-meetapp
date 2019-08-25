@@ -12,8 +12,10 @@ export default function Profile() {
   const profile = useSelector(state => state.user.profile);
 
   const schema = Yup.object().shape({
-    name: Yup.string(),
-    email: Yup.string().email('Insira um e-mail válido'),
+    name: Yup.string().required('Nome obrigatório'),
+    email: Yup.string()
+      .email('Insira um e-mail válido')
+      .required('E-mail obrigatório'),
     oldPassword: Yup.string(),
     password: Yup.string(),
     confirmPassword: Yup.string(),
@@ -25,7 +27,7 @@ export default function Profile() {
 
   return (
     <Container>
-      <Form initialData={profile} onSubmit={handleSubmit}>
+      <Form schema={schema} initialData={profile} onSubmit={handleSubmit}>
         <Input name="name" placeholder="Nome completo" />
         <Input name="email" type="email" placeholder="E-mail" />
 

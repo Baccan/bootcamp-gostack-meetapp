@@ -1,10 +1,36 @@
 import React from 'react';
-import api from '~/services/api';
+import { Link } from 'react-router-dom';
 
-// import { Container } from './styles';
+import { Container, MeetupsList } from './styles';
 
 export default function Dashboard() {
-  api.get('appointments');
+  return (
+    <Container>
+      <header>
+        <h1>Meus meetups</h1>
+        <Link to="/meetups/new">
+          <button type="button">Novo meetap</button>
+        </Link>
+      </header>
 
-  return <h1>Dashboard</h1>;
+      <MeetupsList>
+        <li>
+          Meetup - React
+          <span>25 de Agosto, às 18h30</span>
+        </li>
+        <li>
+          Meetup - React
+          <span>25 de Agosto, às 18h30</span>
+        </li>
+        <li>
+          Meetup - React
+          <span>25 de Agosto, às 18h30</span>
+        </li>
+        <li>
+          Meetup - React
+          <span>25 de Agosto, às 18h30</span>
+        </li>
+      </MeetupsList>
+    </Container>
+  );
 }
