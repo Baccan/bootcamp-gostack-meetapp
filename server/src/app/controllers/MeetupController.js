@@ -47,15 +47,27 @@ class MeetupController {
     }
 
     const user_id = req.userId;
-    const all = await Meetup.create({
+    const meetup = await Meetup.create({
       ...req.body,
       user_id,
     });
 
-    return res.json(all);
+    return res.json(meetup);
   }
 
   async update(req, res) {
+    const schema = Yup.object().shape({
+      title: Yup.string().min(5),
+      description: Yup.string().min(15),
+      location: Yup.string().min(10),
+      date_hour: Yup.date(),
+      file_id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
     const { userId } = req;
     const meetup = await Meetup.findByPk(req.params.id);
 
