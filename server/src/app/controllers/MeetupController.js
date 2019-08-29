@@ -64,9 +64,6 @@ class MeetupController {
       file_id: Yup.number(),
     });
 
-    console.log('--------------------------------------------------------- ');
-    console.log(req.body);
-
     if (!(await schema.isValid(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
     }
@@ -117,12 +114,34 @@ class MeetupController {
       include: [
         {
           model: User,
+          as: 'user',
           attributes: ['name', 'email'],
         },
       ],
     });
 
     return res.json(meetups);
+  }
+
+  async indexOne(req, res) {
+    const { id } = req.params;
+
+    const meetup = await Meetup.findByPk(id, {
+      include: [
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
+
+    return res.json(meetup);
   }
 
   async delete(req, res) {

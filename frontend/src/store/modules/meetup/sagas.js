@@ -5,9 +5,23 @@ import api from '~/services/api';
 
 import { updateMeetupSuccess, updateMeetupFailure } from './actions';
 
+export function* listMeetup({ payload }) {
+  try {
+    const id = payload;
+
+    const response = yield call(api.get, `meetups/${id}`);
+
+    yield put(updateMeetupSuccess(response.data));
+  } catch (error) {
+    toast.error('Erro ao listar meetup, tente novamente');
+    yield put(updateMeetupFailure());
+  }
+}
+
 export function* updateMeetup({ payload }) {
   try {
     const { title, description, location, date_hour, file_id } = payload.data;
+    const id = payload.meetupId;
 
     const meetup = Object.assign({
       title,
@@ -17,7 +31,7 @@ export function* updateMeetup({ payload }) {
       file_id,
     });
 
-    const response = yield call(api.put, 'meetups/5', meetup);
+    const response = yield call(api.put, `meetups/${id}`, meetup);
 
     toast.success('Meetup atualizado com sucesso');
 
@@ -28,4 +42,7 @@ export function* updateMeetup({ payload }) {
   }
 }
 
-export default all([takeLatest('@meetup/UPDATE_MEETUP_REQUEST', updateMeetup)]);
+export default all([
+  takeLatest('@meetup/LIST_MEETUP_REQUEST', listMeetup),
+  takeLatest('@meetup/UPDATE_MEETUP_REQUEST', updateMeetup),
+]);

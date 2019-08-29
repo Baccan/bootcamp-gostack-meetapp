@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { format, isBefore, parseISO } from 'date-fns';
+import pt from 'date-fns/locale/pt';
+import { utcToZonedTime } from 'date-fns-tz';
+
+import { MdDeleteForever, MdEdit, MdLocationOn, MdEvent } from 'react-icons/md';
 import { Container, Header, Content } from './styles';
 
-export default function Details() {
+import api from '~/services/api';
+
+export default function Details({ match }) {
+  const meetupId = decodeURIComponent(match.params.id);
+  const [detail, setDetail] = useState({});
+  console.tron.log(meetupId);
+  console.tron.log(detail);
+
+  useEffect(() => {
+    async function loadMeetup() {
+      const response = await api.get(`/meetups/${meetupId}`);
+
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const formatIso = parseISO(response.data.date_hour);
+      const compareDate = utcToZonedTime(formatIso, timezone);
+
+      const time = format(formatIso, "dd 'de' MMMM', às 'HH'h'", {
+        locale: pt,
+      });
+
+      const past = isBefore(compareDate, new Date());
+      const { url } = response.data.image;
+
+      setDetail({ ...response.data, time, past, url });
+    }
+
+    loadMeetup();
+  }, [match.params.id, meetupId]);
+
   return (
     <Container>
       <Header>
@@ -20,23 +53,11 @@ export default function Details() {
         </div>
       </Header>
       <Content>
-        <img
-          src="https://blog.gs1br.org/wp-content/uploads/2017/08/116182-workshop-palestra-curso-simposio-seminario-congresso-qual-a-diferenca.jpg"
-          alt=""
-        />
-        <p>
-          O Meetup de React Native é um evento que reúne a comunidade de
-          desenvolvimento mobile utilizando React a fim de compartilhar
-          conhecimento. Todos são convidados.
-        </p>
-        <p>
-          <br />
-          Caso queira participar como palestrante do meetup envie um e-mail para
-          organizacao@meetuprn.com.br.
-        </p>
+        <img src={detail.url} alt={detail.title} />
+        <p>{detail.description}</p>
         <div>
-          <span>25 de Agosto às 18h30</span>
-          <span>Rua Guilherme Gembala, 260</span>
+          <span>{detail.time}</span>
+          <span>{detail.location}</span>
         </div>
       </Content>
     </Container>

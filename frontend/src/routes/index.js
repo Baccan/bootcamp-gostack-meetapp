@@ -6,6 +6,8 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
 import Dashboard from '../pages/Dashboard';
+
+import Create from '../pages/Meetups/Create';
 import Details from '../pages/Meetups/Details';
 import EditMeetup from '../pages/Meetups/Edit';
 
@@ -20,7 +22,8 @@ export default function Routes() {
       <Route path="/signup" component={SignUp} />
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
-      <Route path="/meetups/details" component={Details} isPrivate />
+      <Route path="/meetups/create" component={Create} isPrivate />
+      <Route path="/meetups/details/:id" component={Details} isPrivate />
       <Route path="/meetups/edit/:id" component={EditMeetup} isPrivate />
 
       <Route path="/profile" component={Profile} isPrivate />

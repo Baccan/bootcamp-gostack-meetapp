@@ -1,7 +1,14 @@
-export function updateMeetupRequest(data) {
+export function listMeetupRequest(meetupId) {
+  return {
+    type: '@meetup/LIST_MEETUP_REQUEST',
+    payload: meetupId,
+  };
+}
+
+export function updateMeetupRequest(data, meetupId) {
   return {
     type: '@meetup/UPDATE_MEETUP_REQUEST',
-    payload: { data },
+    payload: { data, meetupId },
   };
 }
 
