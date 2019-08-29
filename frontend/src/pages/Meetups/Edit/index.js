@@ -50,7 +50,7 @@ export default function Edit({ match }) {
     }
 
     loadMeetup();
-  }, [match.params.id, meetup, meetupId]);
+  }, [meetupId]);
 
   // const schema = Yup.object().shape({});
 

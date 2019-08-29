@@ -36,7 +36,7 @@ export default function Details({ match }) {
     }
 
     loadMeetup();
-  }, [detail, match.params.id, meetupId]);
+  }, [meetupId]);
 
   return (
     <Container>
