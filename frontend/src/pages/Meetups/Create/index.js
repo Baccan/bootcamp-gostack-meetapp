@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 // import * as Yup from 'yup';
 
@@ -22,7 +23,12 @@ export default function Create() {
 
   return (
     <Container>
-      <h1>Editar Meetup</h1>
+      <header>
+        <h1>Editar Meetup</h1>
+        <Link to="/dashboard">
+          <button type="button">Cancelar</button>
+        </Link>
+      </header>
 
       <Form onSubmit={handleSubmit}>
         <MeetupImageInput name="file_id" />

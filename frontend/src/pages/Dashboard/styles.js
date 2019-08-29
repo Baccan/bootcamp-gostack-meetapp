@@ -30,6 +30,18 @@ export const Container = styled.div`
       }
     }
   }
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    span {
+      color: #fff;
+    }
+    svg {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const MeetupsList = styled.ul`

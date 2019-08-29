@@ -5,8 +5,13 @@ export const Container = styled.div`
   max-width: 940px;
   margin: 50px auto;
 
-  h1 {
-    color: #fff;
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    h1 {
+      color: #fff;
+    }
   }
 
   form {
@@ -42,40 +47,22 @@ export const Container = styled.div`
     textarea {
       font-family: 'Roboto', Times, serif;
     }
+  }
 
-    span {
-      color: #f94d6a;
-      align-self: flex-start;
-      margin: 0 0 10px;
-    }
+  button {
+    align-self: flex-end;
+    width: 162px;
+    height: 44px;
+    background: #f94d6a;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background 0.2s;
 
-    hr {
-      border: 0;
-      height: 1px;
-      background: #979797;
-      margin: 30px 0 15px 0;
-    }
-
-    div {
-      display: flex;
-      justify-content: flex-end;
-
-      button {
-        margin: 5px 0 0;
-        width: 162px;
-        height: 44px;
-        background: #f94d6a;
-        font-weight: bold;
-        color: #fff;
-        border: 0;
-        border-radius: 4px;
-        font-size: 16px;
-        transition: background 0.2s;
-
-        &:hover {
-          background: ${darken(0.07, '#F94D6A')};
-        }
-      }
+    &:hover {
+      background: ${darken(0.07, '#F94D6A')};
     }
   }
 `;

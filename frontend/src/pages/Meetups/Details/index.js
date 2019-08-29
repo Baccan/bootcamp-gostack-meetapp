@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { format, isBefore, parseISO } from 'date-fns';
@@ -12,9 +13,9 @@ import api from '~/services/api';
 
 export default function Details({ match }) {
   const meetupId = decodeURIComponent(match.params.id);
+  const profile = useSelector(state => state.user.profile);
+
   const [detail, setDetail] = useState({});
-  console.tron.log(meetupId);
-  console.tron.log(detail);
 
   useEffect(() => {
     async function loadMeetup() {
@@ -35,20 +36,25 @@ export default function Details({ match }) {
     }
 
     loadMeetup();
-  }, [match.params.id, meetupId]);
+  }, [detail, match.params.id, meetupId]);
 
   return (
     <Container>
       <Header>
         <h1>Meetup - React</h1>
         <div>
-          <Link to="/meetups/edit">
-            <button type="button" id="btn-editar">
-              Editar
-            </button>
-          </Link>
+          {detail.user_id === profile.id ? (
+            <Link to={`/meetups/edit/${detail.id}`}>
+              <button type="button" id="btn-editar">
+                Editar
+              </button>
+            </Link>
+          ) : (
+            <></>
+          )}
+
           <Link to="/dashboard">
-            <button type="button">Cancelar</button>
+            <button type="button">Voltar</button>
           </Link>
         </div>
       </Header>

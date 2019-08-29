@@ -38,7 +38,6 @@ export default function Dashboard() {
         };
       });
       setmeetup(data);
-      console.tron.log(data);
     }
 
     loadMeetups();
@@ -82,20 +81,16 @@ export default function Dashboard() {
           </Link>
         </MeetupsList>
       ) : (
-        <ul>
-          <li>
-            <MdArrowBack size={22} color="#fff" onClick={handlePrevPage} />
-          </li>
-          <li>Pagina {page}</li>
-          <li>
-            <MdArrowForward
-              size={22}
-              color="#fff"
-              onClick={handleNextPage}
-              disabled={meetup.length !== 10 ? 'true' : 'false'}
-            />
-          </li>
-        </ul>
+        <div>
+          <MdArrowBack size={22} color="#fff" onClick={handlePrevPage} />
+          <span>Página {page}</span>
+          <MdArrowForward
+            size={22}
+            color="#fff"
+            onClick={handleNextPage}
+            disabled={meetup.length !== 10 ? 'true' : 'false'}
+          />
+        </div>
       )}
     </Container>
   );

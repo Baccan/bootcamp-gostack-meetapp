@@ -6,10 +6,10 @@ import { Container } from './styles';
 import api from '~/services/api';
 
 export default function MeetupImageInput() {
-  const { defaultValue, registerField } = useField('file_id');
+  const { defaultValue, registerField } = useField('image');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
-  const [preview, setPreview] = useState(defaultValue && defaultValue.path);
+  const [preview, setPreview] = useState(defaultValue && defaultValue.url);
 
   const ref = useRef();
 
@@ -30,19 +30,15 @@ export default function MeetupImageInput() {
 
     const response = await api.post('files', data);
 
-    console.tron.log(response);
-
-    const { id, path } = response.data;
-
-    console.tron.log(path);
+    const { id, url } = response.data;
 
     setFile(id);
-    setPreview(path);
+    setPreview(url);
   }
 
   return (
     <Container>
-      <label htmlFor="image">
+      <label htmlFor="file_id">
         <img
           src={
             preview || 'https://api.adorable.io/avatars/50/abott@adorable.png'
@@ -52,7 +48,7 @@ export default function MeetupImageInput() {
         Selecionar imagem
         <input
           type="file"
-          id="image"
+          id="file_id"
           accept="image/*"
           data-file={file}
           onChange={handleChange}
