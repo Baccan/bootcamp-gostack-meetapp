@@ -41,6 +41,10 @@ export const Container = styled.div`
     svg {
       cursor: pointer;
     }
+
+    svg[disabled] {
+      cursor: default;
+    }
   }
 `;
 
@@ -48,7 +52,7 @@ export const MeetupsList = styled.ul`
   margin: 48px auto;
 
   li {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
     padding: 20px 30px;
     margin: 10px auto;
     color: #fff;
@@ -62,5 +66,9 @@ export const MeetupsList = styled.ul`
       font-weight: normal;
       font-size: 16px;
     }
+  }
+
+  a[disabled] li {
+    background: rgba(0, 0, 0, 0.2);
   }
 `;

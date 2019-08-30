@@ -9,6 +9,7 @@ import api from '~/services/api';
 import { Container } from './styles';
 
 import MeetupImageInput from '~/components/MeetupImageInput';
+import DatePicker from '~/components/DatePicker';
 
 export default function Create() {
   // const schema = Yup.object().shape({});
@@ -24,7 +25,7 @@ export default function Create() {
   return (
     <Container>
       <header>
-        <h1>Editar Meetup</h1>
+        <h1>Criar Meetup</h1>
         <Link to="/dashboard">
           <button type="button">Cancelar</button>
         </Link>
@@ -39,6 +40,7 @@ export default function Create() {
           id="description"
           placeholder="Descrição completa"
         />
+        {/* <DatePicker name="date_hour" /> */}
         <Input name="date_hour" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" />
         <button type="submit">

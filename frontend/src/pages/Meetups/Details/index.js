@@ -41,9 +41,9 @@ export default function Details({ match }) {
   return (
     <Container>
       <Header>
-        <h1>Meetup - React</h1>
+        <h1>{detail.title}</h1>
         <div>
-          {detail.user_id === profile.id ? (
+          {detail.user_id === profile.id && !detail.past ? (
             <Link to={`/meetups/edit/${detail.id}`}>
               <button type="button" id="btn-editar">
                 Editar

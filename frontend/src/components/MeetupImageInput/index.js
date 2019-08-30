@@ -5,7 +5,7 @@ import { Container } from './styles';
 
 import api from '~/services/api';
 
-export default function MeetupImageInput() {
+export default function MeetupImageInput({ image }) {
   const { defaultValue, registerField } = useField('image');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -14,6 +14,10 @@ export default function MeetupImageInput() {
   const ref = useRef();
 
   useEffect(() => {
+    if (image) {
+      setPreview(image);
+    }
+
     if (ref.current) {
       registerField({
         name: 'file_id',
@@ -21,7 +25,7 @@ export default function MeetupImageInput() {
         path: 'dataset.file',
       });
     }
-  }, [ref, registerField]);
+  }, [image, ref, registerField]);
 
   async function handleChange(e) {
     const data = new FormData();

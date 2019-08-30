@@ -10,6 +10,7 @@ import { utcToZonedTime } from 'date-fns-tz';
 
 // import * as Yup from 'yup';
 
+import { restElement } from '@babel/types';
 import {
   updateMeetupRequest,
   listMeetupRequest,
@@ -25,6 +26,7 @@ import api from '~/services/api';
 export default function Edit({ match }) {
   const dispatch = useDispatch();
   const [meetup, setMeetup] = useState({});
+  const [description, setDescription] = useState({});
 
   const meetupId = decodeURIComponent(match.params.id);
 
@@ -46,6 +48,7 @@ export default function Edit({ match }) {
       const past = isBefore(compareDate, new Date());
       const { url } = response.data.image;
 
+      setDescription(response.data.description);
       setMeetup({ ...response.data, time, past, url });
     }
 
@@ -68,11 +71,15 @@ export default function Edit({ match }) {
       </header>
 
       <Form initialData={meetup} onSubmit={handleSubmit}>
-        <MeetupImageInput name="file_id" />
+        <MeetupImageInput name="file_id" image={meetup.url} />
         <Input name="title" placeholder="Título do Meetup" />
         <Input
           multiline
+          onChange={e => {
+            setDescription(e.value);
+          }}
           name="description"
+          value={description}
           id="description"
           placeholder="Descrição completa"
         />

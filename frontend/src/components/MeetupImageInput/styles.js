@@ -21,6 +21,7 @@ export const Container = styled.div`
 
     img {
       max-width: 40%;
+      max-height: 40%;
     }
 
     input {

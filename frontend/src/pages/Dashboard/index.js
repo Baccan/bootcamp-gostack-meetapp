@@ -65,7 +65,7 @@ export default function Dashboard() {
 
       <MeetupsList>
         {meetup.map(m => (
-          <Link to={`/meetups/details/${m.id}`} key={m.id}>
+          <Link to={`/meetups/details/${m.id}`} disabled={m.past}>
             <li>
               {m.title}
               <span>{m.time}</span>
@@ -82,14 +82,17 @@ export default function Dashboard() {
         </MeetupsList>
       ) : (
         <div>
-          <MdArrowBack size={22} color="#fff" onClick={handlePrevPage} />
+          {page !== 1 ? (
+            <MdArrowBack size={22} color="#fff" onClick={handlePrevPage} />
+          ) : (
+            <div />
+          )}
           <span>Página {page}</span>
-          <MdArrowForward
-            size={22}
-            color="#fff"
-            onClick={handleNextPage}
-            disabled={meetup.length !== 10 ? 'true' : 'false'}
-          />
+          {meetup.length === 10 ? (
+            <MdArrowForward size={22} color="#fff" onClick={handleNextPage} />
+          ) : (
+            <div />
+          )}
         </div>
       )}
     </Container>

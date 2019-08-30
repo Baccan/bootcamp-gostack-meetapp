@@ -49,7 +49,8 @@ export const Container = styled.div`
     }
   }
 
-  button {
+  header button,
+  button[type='submit'] {
     align-self: flex-end;
     width: 162px;
     height: 44px;
