@@ -97,19 +97,20 @@ class MeetupController {
   async index(req, res) {
     const {
       // formato YYYY-MM-DD
-      date = new Date().toISOString().split('T')[0],
+      // date = new Date().toISOString().split('T')[0],
       page = 1,
     } = req.query;
 
-    const parsedDate = parseISO(date);
+    // const parsedDate = parseISO(date);
 
     const meetups = await Meetup.findAll({
-      where: {
-        date_hour: {
-          [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
-        },
-      },
+      // where: {
+      //   date_hour: {
+      //     [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
+      //   },
+      // },
       limit: 10,
+      order: [['id', 'DESC']],
       offset: (page - 1) * 10,
       include: [
         {
