@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
 import history from '~/services/history';
 import api from '~/services/api';
@@ -12,15 +12,29 @@ import MeetupImageInput from '~/components/MeetupImageInput';
 import DatePicker from '~/components/DatePicker';
 
 export default function Create() {
-  // const schema = Yup.object().shape({});
-
   async function handleSubmit(data) {
     const response = await api.post('meetups', data);
 
-    console.tron.log(response);
+    const { id } = response.data;
 
-    history.push('/dashboard');
+    history.push(`/meetups/details/${id}`);
   }
+
+  const schema = Yup.object().shape({
+    title: Yup.string()
+      .min(5, 'Deve ter no mínimo 5 caracteres')
+      .required('Título obrigatório'),
+    description: Yup.string()
+      .min(15, 'Deve ter no mínimo 15 caracteres')
+      .required('Descrição obrigatória'),
+    location: Yup.string()
+      .min(10, 'Deve ter no mínimo 10 caracteres')
+      .required('Localização obrigatório'),
+    date_hour: Yup.date('Selecione uma data válida').required(
+      'Data obrigatória'
+    ),
+    file_id: Yup.number('Imagem obrigatória').required('Imagem obrigatória'),
+  });
 
   return (
     <Container>
@@ -31,7 +45,7 @@ export default function Create() {
         </Link>
       </header>
 
-      <Form onSubmit={handleSubmit}>
+      <Form schema={schema} onSubmit={handleSubmit}>
         <MeetupImageInput name="file_id" />
         <Input name="title" placeholder="Título do Meetup" />
         <Input

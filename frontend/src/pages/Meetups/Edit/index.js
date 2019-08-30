@@ -8,9 +8,10 @@ import { format, isBefore, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
 
-// import * as Yup from 'yup';
+import * as Yup from 'yup';
 
-import { restElement } from '@babel/types';
+import history from '~/services/history';
+
 import {
   updateMeetupRequest,
   listMeetupRequest,
@@ -55,10 +56,26 @@ export default function Edit({ match }) {
     loadMeetup();
   }, [meetupId]);
 
-  // const schema = Yup.object().shape({});
+  const schema = Yup.object().shape({
+    title: Yup.string()
+      .min(5, 'Deve ter no mínimo 5 caracteres')
+      .required('Título obrigatório'),
+    description: Yup.string()
+      .min(15, 'Deve ter no mínimo 15 caracteres')
+      .required('Descrição obrigatória'),
+    location: Yup.string()
+      .min(10, 'Deve ter no mínimo 10 caracteres')
+      .required('Localização obrigatório'),
+    date_hour: Yup.date('Selecione uma data válida').required(
+      'Data obrigatória'
+    ),
+    file_id: Yup.number('Imagem obrigatória').required('Imagem obrigatória'),
+  });
 
   async function handleSubmit(data) {
     dispatch(updateMeetupRequest(data, meetupId));
+
+    history.push(`/meetups/details/${meetupId}`);
   }
 
   return (
@@ -70,8 +87,12 @@ export default function Edit({ match }) {
         </Link>
       </header>
 
-      <Form initialData={meetup} onSubmit={handleSubmit}>
-        <MeetupImageInput name="file_id" image={meetup.url} />
+      <Form schema={schema} initialData={meetup} onSubmit={handleSubmit}>
+        <MeetupImageInput
+          name="file_id"
+          image={meetup.url}
+          imageId={meetup.file_id}
+        />
         <Input name="title" placeholder="Título do Meetup" />
         <Input
           multiline

@@ -47,6 +47,11 @@ export const Container = styled.div`
     textarea {
       font-family: 'Roboto', Times, serif;
     }
+
+    span {
+      margin: -10px 0 10px 0;
+      color: #f94d6a;
+    }
   }
 
   header button,

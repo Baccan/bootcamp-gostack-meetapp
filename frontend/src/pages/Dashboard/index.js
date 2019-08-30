@@ -37,6 +37,7 @@ export default function Dashboard() {
           id: m.id,
         };
       });
+
       setmeetup(data);
     }
 

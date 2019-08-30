@@ -31,12 +31,12 @@ export default function Header() {
               <strong>{profile.name}</strong>
               <Link to="/profile">Meu perfil</Link>
             </div>
-            <Link to="/profile">
+            {/* <Link to="/profile">
               <img
                 src="https://api.adorable.io/avatars/50/abott@adorable.png"
                 alt={profile.name}
               />
-            </Link>
+            </Link> */}
             <button type="button" onClick={handleSignOut}>
               Sair
             </button>
