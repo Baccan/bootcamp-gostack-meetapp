@@ -53,13 +53,33 @@ export const Content = styled.div`
   }
 
   div {
-    width: 440px;
+    width: 100%;
     margin: 40px 0;
     display: flex;
     justify-content: space-between;
     span {
       color: rgba(255, 255, 255, 0.5);
       font-size: 16px;
+    }
+
+    button {
+      height: 44px;
+      padding: 12px 24px;
+      background: #f94d6a;
+      font-weight: bold;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+
+      svg {
+        margin-right: 5px;
+      }
+
+      &:hover {
+        background: ${darken(0.07, '#F94D6A')};
+      }
     }
   }
 `;

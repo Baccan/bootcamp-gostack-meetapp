@@ -6,10 +6,10 @@ import { format, isBefore, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
 
-import { MdDeleteForever, MdEdit, MdLocationOn, MdEvent } from 'react-icons/md';
 import { Container, Header, Content } from './styles';
 
 import api from '~/services/api';
+import history from '~/services/history';
 
 export default function Details({ match }) {
   const meetupId = decodeURIComponent(match.params.id);
@@ -38,6 +38,11 @@ export default function Details({ match }) {
     loadMeetup();
   }, [meetupId]);
 
+  async function handleDelete(id) {
+    await api.post(`/meetups/${id}`);
+    history.push('/dashoard');
+  }
+
   return (
     <Container>
       <Header>
@@ -64,6 +69,17 @@ export default function Details({ match }) {
         <div>
           <span>{detail.time}</span>
           <span>{detail.location}</span>
+          {detail.user_id === profile.id && !detail.past ? (
+            <button
+              type="button"
+              id="btn-editar"
+              onClick={() => handleDelete(detail.id)}
+            >
+              Deletar evento
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
       </Content>
     </Container>

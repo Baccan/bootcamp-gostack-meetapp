@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { Form, Input } from '@rocketseat/unform';
 import { MdCancel, MdCheckCircle } from 'react-icons/md';
@@ -13,13 +13,9 @@ import * as Yup from 'yup';
 
 import history from '~/services/history';
 
-import {
-  updateMeetupRequest,
-  listMeetupRequest,
-} from '~/store/modules/meetup/actions';
+import { updateMeetupRequest } from '~/store/modules/meetup/actions';
 
 import MeetupImageInput from '~/components/MeetupImageInput';
-// import api from '~/services/api';
 
 import { Container } from './styles';
 
@@ -31,9 +27,6 @@ export default function Edit({ match }) {
   const [description, setDescription] = useState({});
 
   const meetupId = decodeURIComponent(match.params.id);
-
-  // dispatch(listMeetupRequest(meetupId));
-  // const meetup = useSelector(state => state.meetup);
 
   useEffect(() => {
     async function loadMeetup() {
