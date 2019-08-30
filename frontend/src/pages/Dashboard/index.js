@@ -5,12 +5,7 @@ import { format, isBefore, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { utcToZonedTime } from 'date-fns-tz';
 
-import {
-  MdAddCircle,
-  MdKeyboardArrowRight,
-  MdArrowForward,
-  MdArrowBack,
-} from 'react-icons/md';
+import { MdAddCircle, MdArrowForward, MdArrowBack } from 'react-icons/md';
 import { Container, MeetupsList } from './styles';
 
 import api from '~/services/api';
@@ -60,7 +55,10 @@ export default function Dashboard() {
       <header>
         <h1>Meus meetups</h1>
         <Link to="/meetups/create">
-          <button type="button">Novo meetap</button>
+          <button type="button">
+            <MdAddCircle size={16} color="#fff" onClick={handleNextPage} />
+            Novo meetap
+          </button>
         </Link>
       </header>
 

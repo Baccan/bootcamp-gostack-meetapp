@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
+import { MdCancel, MdCheckCircle } from 'react-icons/md';
 import history from '~/services/history';
 import api from '~/services/api';
 
@@ -41,7 +42,10 @@ export default function Create() {
       <header>
         <h1>Criar Meetup</h1>
         <Link to="/dashboard">
-          <button type="button">Cancelar</button>
+          <button type="button">
+            <MdCancel size={16} color="#fff" />
+            Cancelar
+          </button>
         </Link>
       </header>
 
@@ -58,7 +62,7 @@ export default function Create() {
         <Input name="date_hour" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" />
         <button type="submit">
-          {/* <MdAddCircle size={22} color="#fff" /> */}
+          <MdCheckCircle size={16} color="#fff" />
           Criar meetup
         </button>
       </Form>

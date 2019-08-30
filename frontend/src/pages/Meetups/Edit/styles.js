@@ -54,7 +54,8 @@ export const Container = styled.div`
     }
   }
 
-  button {
+  header button,
+  button[type='submit'] {
     align-self: flex-end;
     width: 162px;
     height: 44px;
@@ -65,6 +66,14 @@ export const Container = styled.div`
     border-radius: 4px;
     font-size: 16px;
     transition: background 0.2s;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      margin-right: 5px;
+    }
 
     &:hover {
       background: ${darken(0.07, '#F94D6A')};

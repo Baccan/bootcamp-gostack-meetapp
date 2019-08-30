@@ -25,6 +25,14 @@ export const Container = styled.div`
       font-size: 16px;
       transition: background 0.2s;
 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        margin-right: 5px;
+      }
+
       &:hover {
         background: ${darken(0.07, '#F94D6A')};
       }

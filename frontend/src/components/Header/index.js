@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { MdExitToApp } from 'react-icons/md';
 import { signOut } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/images/logo.svg';
@@ -38,6 +39,7 @@ export default function Header() {
               />
             </Link> */}
             <button type="button" onClick={handleSignOut}>
+              <MdExitToApp size={16} color="#fff" />
               Sair
             </button>
           </Profile>

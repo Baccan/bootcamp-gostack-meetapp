@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Form, Input } from '@rocketseat/unform';
+import { MdCancel, MdCheckCircle } from 'react-icons/md';
 
 import { format, isBefore, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -83,7 +84,10 @@ export default function Edit({ match }) {
       <header>
         <h1>Editar Meetup</h1>
         <Link to={`/meetups/details/${meetupId}`}>
-          <button type="button">Cancelar</button>
+          <button type="button">
+            <MdCancel size={16} color="#fff" />
+            Cancelar
+          </button>
         </Link>
       </header>
 
@@ -107,7 +111,7 @@ export default function Edit({ match }) {
         <Input name="date_hour" placeholder="Data do meetup" />
         <Input name="location" placeholder="Localização" />
         <button type="submit">
-          {/* <MdAddCircle size={22} color="#fff" /> */}
+          <MdCheckCircle size={16} color="#fff" />
           Salvar meetup
         </button>
       </Form>
