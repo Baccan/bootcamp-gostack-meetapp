@@ -31,6 +31,8 @@ target 'meetappMobile' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   target 'meetappMobileTests' do
     inherit! :search_paths
     # Pods for testing
