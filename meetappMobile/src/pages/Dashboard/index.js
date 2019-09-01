@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { format, subDays, addDays, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
@@ -32,6 +33,9 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [meetup, setMeetup] = useState([]);
+  const [subscriptions, setSubscriptions] = useState([]);
+
+  const profile = useSelector(state => state.user.profile);
 
   // async function loadMore() {
   //   const nextPage = page + 1;
@@ -64,10 +68,19 @@ export default function Dashboard() {
       const response = await api.get('meetups', {
         params: { date, users: 0, page },
       });
-      // setMeetup([]);
+
+      // const subs = await api.get('/meetups/subscriptions');
+      // setSubscriptions(subs);
       setMeetup(response.data);
       setLoading(false);
     }
+
+    async function loadSubscriptions() {
+      const subs = await api.get('/subscriptions');
+      setSubscriptions(subs);
+    }
+
+    loadSubscriptions();
     loadMeetups();
   }, [date, page]);
 
@@ -95,14 +108,14 @@ export default function Dashboard() {
       setMeetup(response.data);
       setLoading(false);
     }
-    await api
-      .post(`/meetups/${id}/subscription`)
-      .then(Alert.alert('Sucesso', 'Você foi inscrito no meetup'))
-      .catch(function(error) {
-        if (error.response) {
-          Alert.alert('Falha ao se inscrever', error.response.data.error);
-        }
-      });
+
+    try {
+      await api
+        .post(`/meetups/${id}/subscriptions`)
+        .then(Alert.alert('Sucesso', 'Você foi inscrito no meetup'));
+    } catch (error) {
+      Alert.alert('Falha ao se inscrever', error.response.data.error);
+    }
     loadMeetups();
   }
 
@@ -117,16 +130,29 @@ export default function Dashboard() {
       setMeetup(response.data);
       setLoading(false);
     }
-    const response = await api
-      .delete(`/meetups/${id}/subscription`)
-      .then(Alert.alert('Sucesso', 'Você cancelou sua inscrição com sucesso'))
-      .catch(function(error) {
-        if (error.response) {
-          Alert.alert('Falha ao cancelar inscrição', error.response.data.error);
-        }
-      });
+    try {
+      await api
+        .delete(`/meetups/${id}/subscriptions`)
+        .then(
+          Alert.alert('Sucesso', 'Você cancelou sua inscrição com sucesso')
+        );
+    } catch (error) {
+      Alert.alert('Falha ao cancelar inscrição', error.response.data.error);
+    }
+
     loadMeetups();
   }
+
+  // const checkSub = id => {
+  //   if (subscriptions.length >= 1) {
+  //     const inSub = subscriptions.filter(sub => {
+  //       return sub.user_id === id;
+  //     });
+
+  //     if (inSub.length >= 1) return false;
+  //   }
+  //   return true;
+  // };
 
   return (
     <Background>
@@ -149,7 +175,7 @@ export default function Dashboard() {
               <ActivityIndicator color="#402845" size="large" />
             ) : (
               <NoMettup>
-                Nenhum meetup encontrado no dia {dateFormatted}
+                Nenhum meetup encontrado para este dia {dateFormatted}
               </NoMettup>
             )}
           </Box>
@@ -191,7 +217,7 @@ export default function Dashboard() {
                     <Icon name="person" size={16} color="#999" />
                     <OrganizerText>Organizador: {item.user.name}</OrganizerText>
                   </Organizer>
-                  {/* {item.Subscriptions.length === 0 ? (
+                  {item.user_id !== profile.id ? (
                     <SubscriptionButton
                       onPress={() => {
                         handleSubscribe(item.id);
@@ -200,10 +226,15 @@ export default function Dashboard() {
                       Realizar inscrição
                     </SubscriptionButton>
                   ) : (
+                    <></>
+                  )}
+                  {item.user_id !== profile.id ? (
                     <UnsubscriptionButton onPress={() => handleUnsub(item.id)}>
                       Cancelar inscrição
                     </UnsubscriptionButton>
-                  )} */}
+                  ) : (
+                    <></>
+                  )}
                 </Info>
               </Meetup>
             )}

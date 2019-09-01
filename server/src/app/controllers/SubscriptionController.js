@@ -1,9 +1,10 @@
 import { Op } from 'sequelize';
 
-import Subscription from '../models/Subscription';
+import { isBefore, startOfHour, parseISO } from 'date-fns';
 import Queue from '../../lib/Queue';
 import SubscriptionMail from '../jobs/SubscriptionMail';
 
+import Subscription from '../models/Subscription';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
 
@@ -85,6 +86,33 @@ class SubscriptionController {
     });
 
     return res.json(subscription);
+  }
+
+  async delete(req, res) {
+    const { userId } = req;
+    const { meetupId } = req.params;
+    const subs = await Subscription.findOne({
+      where: {
+        user_id: userId,
+        meetup_id: meetupId,
+      },
+    });
+
+    if (!subs) {
+      return res
+        .status(400)
+        .json({ error: 'Meetup not found or you are not subscribe to it.' });
+    }
+
+    const hourStart = startOfHour(parseISO(subs.date_hour));
+
+    if (isBefore(hourStart, new Date())) {
+      return res.status(400).json({ error: 'Cant unsub to past meetups.' });
+    }
+
+    subs.destroy();
+
+    return res.json({ message: 'deleted' });
   }
 }
 

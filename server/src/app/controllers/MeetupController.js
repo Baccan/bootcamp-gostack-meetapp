@@ -12,6 +12,7 @@ import { Op } from 'sequelize';
 import Meetup from '../models/Meetup';
 import File from '../models/File';
 import User from '../models/User';
+import Subscription from '../models/Subscription';
 
 class MeetupController {
   async store(req, res) {
