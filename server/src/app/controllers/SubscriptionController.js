@@ -16,15 +16,16 @@ class SubscriptionController {
       include: [
         {
           model: Meetup,
+          as: 'meetup',
           where: {
-            date: {
+            date_hour: {
               [Op.gt]: new Date(),
             },
           },
           required: true,
         },
       ],
-      order: [[Meetup, 'date']],
+      order: [[Meetup, 'date_hour']],
     });
 
     return res.json(subscriptions);
@@ -53,9 +54,10 @@ class SubscriptionController {
       include: [
         {
           model: Meetup,
+          as: 'meetup',
           required: true,
           where: {
-            date: meetup.date,
+            date_hour: meetup.date_hour,
           },
         },
       ],

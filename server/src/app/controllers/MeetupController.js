@@ -105,7 +105,7 @@ class MeetupController {
     if (req.query.date) {
       const searchDate = parseISO(req.query.date);
 
-      where.date = {
+      where.date_hour = {
         [Op.between]: [startOfDay(searchDate), endOfDay(searchDate)],
       };
     }
