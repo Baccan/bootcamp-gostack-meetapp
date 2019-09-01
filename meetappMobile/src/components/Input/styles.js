@@ -4,7 +4,7 @@ export const Container = styled.View`
   border-radius: 4px;
   height: 44px;
   padding: 0 15px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.1);
   font-size: 16px;
 
   flex-direction: row;
@@ -12,7 +12,7 @@ export const Container = styled.View`
 `;
 
 export const TInput = styled.TextInput.attrs({
-  placeholderTextColor: 'rgba(255,255,255,0.8)',
+  placeholderTextColor: 'rgba(255,255,255,0.5)',
 })`
   flex: 1;
   height: 44px;
