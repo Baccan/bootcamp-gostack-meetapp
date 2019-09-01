@@ -113,13 +113,18 @@ class MeetupController {
     const meetups = await Meetup.findAll({
       where,
       limit: 10,
-      order: [['id', 'DESC']],
+      // order: [['id', 'DESC']],
       offset: (page - 1) * 10,
       include: [
         {
           model: User,
           as: 'user',
           attributes: ['name', 'email'],
+        },
+        {
+          model: File,
+          as: 'image',
+          attributes: ['id', 'path', 'url'],
         },
       ],
     });

@@ -1,0 +1,56 @@
+import React from 'react';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Background from '~/components/Background';
+import Meetup from '~/components/Meetup';
+
+import { Container, Title, MeetupsList } from './styles';
+
+const data = [1, 2, 3, 4, 5];
+
+export default function Dashboard() {
+  return (
+    <Background>
+      <Container>
+        <Title>01 de Agosto de 2019</Title>
+
+        <MeetupsList
+          data={data}
+          keyExtractor={item => String(item)}
+          renderItem={({ item }) => <Meetup data={item}> </Meetup>}
+        />
+      </Container>
+    </Background>
+  );
+}
+
+Dashboard.navigationOptions = {
+  tabBarLabel: 'Meetups',
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name="event" size={20} color={tintColor} />
+  ),
+};
+
+/////////////////////////////////////////////
+
+
+
+import styled from 'styled-components/native';
+
+export const Container = styled.SafeAreaView`
+  flex: 1;
+`;
+
+export const Title = styled.Text`
+  font-size: 20px;
+  color: #fff;
+  font-weight: bold;
+  align-self: center;
+  margin-top: 34px;
+`;
+
+export const MeetupsList = styled.FlatList.attrs({
+  showsVerticalScrollIndicator: false,
+  constentContainerStyle: { padding: 30 },
+})``;
+
