@@ -25,7 +25,7 @@ class SubscriptionController {
           required: true,
         },
       ],
-      order: [[Meetup, 'date_hour']],
+      order: [['meetup', 'date_hour']],
     });
 
     return res.json(subscriptions);
@@ -34,7 +34,12 @@ class SubscriptionController {
   async store(req, res) {
     const user = await User.findByPk(req.userId);
     const meetup = await Meetup.findByPk(req.params.meetupId, {
-      include: [User],
+      include: [
+        {
+          model: User,
+          as: 'user',
+        },
+      ],
     });
 
     if (meetup.user_id === req.userId) {

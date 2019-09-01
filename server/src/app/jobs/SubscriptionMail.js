@@ -13,7 +13,7 @@ class SubscriptionMail {
       subject: `[${meetup.title}] Nova inscrição`,
       template: 'subscription',
       context: {
-        organizer: meetup.User.name,
+        organizer: meetup.user.name,
         meetup: meetup.title,
         user: user.name,
         email: user.email,

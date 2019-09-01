@@ -21,6 +21,8 @@ class Queue {
           redis: {
             host: process.env.REDIS_HOST,
             port: process.env.REDIS_PORT,
+            // host: '192.168.99.100',
+            // port: '6379',
           },
         }),
         handle,

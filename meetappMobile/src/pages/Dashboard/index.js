@@ -23,7 +23,7 @@ import {
   Image,
   Info,
 } from './styles';
-// import Header from '~/components/Header';
+import Header from '~/components/Header';
 import Background from '~/components/Background';
 import api from '~/services/api';
 
@@ -131,7 +131,7 @@ export default function Dashboard() {
   return (
     <Background>
       <Container>
-        {/* <Header /> */}
+        <Header />
         <DatePicker>
           <TouchableOpacity onPress={handlePrevDay}>
             <Icon name="keyboard-arrow-left" size={26} color="#fff" />
