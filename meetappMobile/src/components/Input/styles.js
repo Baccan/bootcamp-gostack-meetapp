@@ -1,0 +1,22 @@
+import styled from 'styled-components/native';
+
+export const Container = styled.View`
+  border-radius: 4px;
+  height: 44px;
+  padding: 0 15px;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const TInput = styled.TextInput.attrs({
+  placeholderTextColor: 'rgba(255,255,255,0.8)',
+})`
+  flex: 1;
+  height: 44px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+`;
