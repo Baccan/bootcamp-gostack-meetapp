@@ -17,6 +17,8 @@ import { updateMeetupRequest } from '~/store/modules/meetup/actions';
 
 import MeetupImageInput from '~/components/MeetupImageInput';
 
+import DatePicker from '~/components/DatePicker';
+
 import { Container } from './styles';
 
 import api from '~/services/api';
@@ -25,6 +27,7 @@ export default function Edit({ match }) {
   const dispatch = useDispatch();
   const [meetup, setMeetup] = useState({});
   const [description, setDescription] = useState({});
+  const [date, setDate] = useState(new Date());
 
   const meetupId = decodeURIComponent(match.params.id);
 
@@ -44,6 +47,7 @@ export default function Edit({ match }) {
       const { url } = response.data.image;
 
       setDescription(response.data.description);
+      setDate(parseISO(response.data.date_hour));
       setMeetup({ ...response.data, time, past, url });
     }
 
@@ -101,7 +105,8 @@ export default function Edit({ match }) {
           id="description"
           placeholder="Descrição completa"
         />
-        <Input name="date_hour" placeholder="Data do meetup" />
+        <DatePicker name="date_hour" value={date} />
+        {/* <Input name="date_hour" placeholder="Data do meetup" /> */}
         <Input name="location" placeholder="Localização" />
         <button type="submit">
           <MdCheckCircle size={16} color="#fff" />

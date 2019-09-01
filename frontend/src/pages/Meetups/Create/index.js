@@ -58,8 +58,8 @@ export default function Create() {
           id="description"
           placeholder="Descrição completa"
         />
-        {/* <DatePicker name="date_hour" /> */}
-        <Input name="date_hour" placeholder="Data do meetup" />
+        <DatePicker name="date_hour" />
+        {/* <Input name="date_hour" placeholder="Data do meetup" /> */}
         <Input name="location" placeholder="Localização" />
         <button type="submit">
           <MdCheckCircle size={16} color="#fff" />
