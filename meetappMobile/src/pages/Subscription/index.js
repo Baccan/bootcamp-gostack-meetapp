@@ -22,7 +22,7 @@ import {
 } from './styles';
 import Header from '~/components/Header';
 import Background from '~/components/Background';
-import api from '~/services/api';
+import api, { baseURL } from '~/services/api';
 
 export default function Subscription() {
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ export default function Subscription() {
   async function loadMeetups() {
     setLoading(true);
     setPage(1);
-    const response = await api.get('/meetups/subscriptions');
+    const response = await api.get('/subscriptions');
     setMeetup(response.data);
     setLoading(false);
   }
@@ -41,7 +41,7 @@ export default function Subscription() {
     setLoading(true);
 
     const nextPage = page + 1;
-    const response = await api.get('/meetups/subscriptions', {
+    const response = await api.get('/subscriptions', {
       params: {
         page: nextPage,
       },
@@ -87,21 +87,21 @@ export default function Subscription() {
           onRefresh={loadMeetups} // Função dispara quando o usuário arrasta a lista pra baixo
           refreshing={false}
           data={meetup}
-          keyExtractor={item => String(item.Meetup.id)}
+          keyExtractor={item => String(item.meetup_id)}
           renderItem={({ item }) => (
-            <Meetup key={item.Meetup.id}>
+            <Meetup key={item.id}>
               <Image
                 source={{
-                  uri: item.Meetup.File.url,
+                  uri: `${baseURL}/files/${item.meetup.image.path}`,
                 }}
               />
               <Info>
-                <Title>{item.Meetup.title}</Title>
+                <Title>{item.meetup.title}</Title>
                 <DateMeetup>
                   <Icon name="event" size={16} color="#999" />
                   <DateText>
                     {format(
-                      parseISO(item.Meetup.date),
+                      parseISO(item.meetup.date_hour),
                       "d 'de' MMMM ', às' HH:mm",
                       {
                         locale: pt,
@@ -111,17 +111,18 @@ export default function Subscription() {
                 </DateMeetup>
                 <Location>
                   <Icon name="place" size={16} color="#999" />
-                  <LocationText>{item.Meetup.location}</LocationText>
+                  <LocationText>{item.meetup.location}</LocationText>
                 </Location>
                 <Organizer>
                   <Icon name="person" size={16} color="#999" />
                   <OrganizerText>
-                    Organizador: {item.Meetup.User.name}
+                    Organizador:
+                    {item.meetup.user.name}
                   </OrganizerText>
                 </Organizer>
 
                 <UnsubscriptionButton
-                  onPress={() => handleUnsub(item.Meetup.id)}
+                  onPress={() => handleUnsub(item.meetup.id)}
                 >
                   Cancelar inscrição
                 </UnsubscriptionButton>

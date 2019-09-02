@@ -127,6 +127,10 @@ class MeetupController {
           as: 'image',
           attributes: ['id', 'path', 'url'],
         },
+        {
+          model: Subscription,
+          as: 'subscription',
+        },
       ],
     });
 

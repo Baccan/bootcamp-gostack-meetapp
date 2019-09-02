@@ -26,7 +26,7 @@ import {
 } from './styles';
 import Header from '~/components/Header';
 import Background from '~/components/Background';
-import api from '~/services/api';
+import api, { baseURL } from '~/services/api';
 
 export default function Dashboard() {
   const [date, setDate] = useState(new Date());
@@ -36,19 +36,6 @@ export default function Dashboard() {
   const [subscriptions, setSubscriptions] = useState([]);
 
   const profile = useSelector(state => state.user.profile);
-
-  // async function loadMore() {
-  //   const nextPage = page + 1;
-
-  //   const response = await api.get('meetups', {
-  //     params: { date, users: 0, page: nextPage },
-  //   });
-  //   const { data } = response;
-  //   if (data.length > 0) {
-  //     setMeetup([...meetup, ...data]);
-  //   }
-  //   setPage(nextPage);
-  // }
 
   async function loadMoreMeetups() {
     setLoading(true);
@@ -104,7 +91,6 @@ export default function Dashboard() {
       const response = await api.get('meetups', {
         params: { date, users: 0, page },
       });
-      // setMeetup([]);
       setMeetup(response.data);
       setLoading(false);
     }
@@ -143,13 +129,9 @@ export default function Dashboard() {
     loadMeetups();
   }
 
-  // const checkSub = id => {
-  //   if (subscriptions.length >= 1) {
-  //     const inSub = subscriptions.filter(sub => {
-  //       return sub.user_id === id;
-  //     });
-
-  //     if (inSub.length >= 1) return false;
+  // const checkSub = subs => {
+  //   if (subs) {
+  //     return false;
   //   }
   //   return true;
   // };
@@ -192,7 +174,7 @@ export default function Dashboard() {
               <Meetup>
                 <Image
                   source={{
-                    uri: `http://192.168.0.5:3333/files/${item.image.path}`,
+                    uri: `${baseURL}/files/${item.image.path}`,
                   }}
                 />
                 <Info>

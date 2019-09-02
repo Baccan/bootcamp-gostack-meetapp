@@ -54,7 +54,7 @@ export const Organizer = styled.View`
 
 export const SubscriptionButton = styled(Button)`
   margin-top: 10px;
-  background: #ff264b;
+  background: #4dbaf9;
 `;
 
 export const UnsubscriptionButton = styled(Button)`

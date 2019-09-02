@@ -7,13 +7,23 @@ import SubscriptionMail from '../jobs/SubscriptionMail';
 import Subscription from '../models/Subscription';
 import User from '../models/User';
 import Meetup from '../models/Meetup';
+import File from '../models/File';
 
 class SubscriptionController {
   async index(req, res) {
+    const {
+      // formato YYYY-MM-DD
+      // date = new Date().toISOString().split('T')[0],
+      page = 1,
+    } = req.query;
+
     const subscriptions = await Subscription.findAll({
       where: {
         user_id: req.userId,
       },
+      limit: 10,
+      // order: [['id', 'DESC']],
+      offset: (page - 1) * 10,
       include: [
         {
           model: Meetup,
@@ -24,6 +34,18 @@ class SubscriptionController {
             },
           },
           required: true,
+          include: [
+            {
+              model: User,
+              as: 'user',
+              required: true,
+            },
+            {
+              model: File,
+              as: 'image',
+              required: true,
+            },
+          ],
         },
       ],
       order: [['meetup', 'date_hour']],
