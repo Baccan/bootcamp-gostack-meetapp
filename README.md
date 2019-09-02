@@ -29,7 +29,7 @@ $ yarn
 
 ## Variáveis ambiente
 
-Antes de iniciar a aplicação, configure as variáveis ambiente do [server](https://github.com/Baccan/bootcamp-gostack-meetapp/blob/master/server/.env).
+Antes de iniciar a aplicação, configure as variáveis ambiente do [server](https://github.com/Baccan/bootcamp-gostack-meetapp/blob/master/server/.env.example).
 
 Em seguida, altere a [baseURL](https://github.com/Baccan/bootcamp-gostack-meetapp/blob/master/meetappMobile/src/services/api.js) do arquivo `api.js` com a url para acessar ao servidor previamente configurado.
 
